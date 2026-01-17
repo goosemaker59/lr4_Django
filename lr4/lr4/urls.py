@@ -1,8 +1,8 @@
 """
-URL configuration for lr4 project.
+URL configuration for lr3 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,7 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from flimsJSON import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('film_add/', views.film_add, name='film_add'),
+    path('film_list/', views.film_list, name='film_list'),
+    path('film_search/', views.film_search, name='film_search'),
+    path('film_edit/<int:film_id>/', views.film_edit, name='film_edit'),
+    path('film_delete/<int:film_id>/', views.film_delete, name='film_delete'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
